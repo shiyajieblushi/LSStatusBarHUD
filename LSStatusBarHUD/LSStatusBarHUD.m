@@ -183,9 +183,4 @@ static UIProgressView *progressView_;
     }];
 }
 
-
-+ (void)showXXX
-{
-    
-}
 @end

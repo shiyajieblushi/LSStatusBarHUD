@@ -48,5 +48,5 @@
  */
 + (void)hide;
 
-+ (void)showXXX;
+
 @end
