@@ -1,9 +1,9 @@
 //
-//  XMGStatusBarHUD.h
-//  04-XMGStatusBarHUD
+//  LSStatusBarHUD.h
+//  LSStatusBarHUD
 //
 //  Created by xiaomage on 15/7/30.
-//  Copyright (c) 2015年 小码哥. All rights reserved.
+//  Copyright (c) 2015年 blushi. All rights reserved.
 //  大版本号.功能更新版本号.BUG修复版本号
 //  0.0.0
 

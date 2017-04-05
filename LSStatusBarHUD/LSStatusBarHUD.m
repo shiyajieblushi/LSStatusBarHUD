@@ -1,19 +1,19 @@
 //
-//  XMGStatusBarHUD.m
-//  04-XMGStatusBarHUD
+//  LSStatusBarHUD.m
+//  LSStatusBarHUD
 //
 //  Created by xiaomage on 15/7/30.
-//  Copyright (c) 2015年 小码哥. All rights reserved.
+//  Copyright (c) 2015年 blushi. All rights reserved.
 //
 
 #import "LSStatusBarHUD.h"
 
-#define XMGMessageFont [UIFont systemFontOfSize:12]
+#define LSMessageFont [UIFont systemFontOfSize:12]
 
 /** 消息的停留时间 */
-static CGFloat const XMGMessageDuration = 2.0;
+static CGFloat const LSMessageDuration = 2.0;
 /** 消息显示\隐藏的动画时间 */
-static CGFloat const XMGAnimationDuration = 0.25;
+static CGFloat const LSAnimationDuration = 0.25;
 
 @implementation LSStatusBarHUD
 
@@ -43,7 +43,7 @@ static UIProgressView *progressView_;
     
     // 动画
     frame.origin.y = 0;
-    [UIView animateWithDuration:XMGAnimationDuration animations:^{
+    [UIView animateWithDuration:LSAnimationDuration animations:^{
         window_.frame = frame;
     }];
 }
@@ -64,7 +64,7 @@ static UIProgressView *progressView_;
     // 添加按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:msg forState:UIControlStateNormal];
-    button.titleLabel.font = XMGMessageFont;
+    button.titleLabel.font = LSMessageFont;
     if (image) { // 如果有图片
         [button setImage:image forState:UIControlStateNormal];
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -73,7 +73,7 @@ static UIProgressView *progressView_;
     [window_ addSubview:button];
     
     // 定时器
-    timer_ = [NSTimer scheduledTimerWithTimeInterval:XMGMessageDuration target:self selector:@selector(hide) userInfo:nil repeats:NO];
+    timer_ = [NSTimer scheduledTimerWithTimeInterval:LSMessageDuration target:self selector:@selector(hide) userInfo:nil repeats:NO];
 }
 
 /**
@@ -114,7 +114,7 @@ static UIProgressView *progressView_;
     
     // 添加文字
     UILabel *label = [[UILabel alloc] init];
-    label.font = XMGMessageFont;
+    label.font = LSMessageFont;
     label.frame = window_.bounds;
     label.textAlignment = NSTextAlignmentCenter;
     label.text = msg;
@@ -125,7 +125,7 @@ static UIProgressView *progressView_;
     UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [loadingView startAnimating];
     // 文字宽度
-    CGFloat msgW = [msg sizeWithAttributes:@{NSFontAttributeName : XMGMessageFont}].width;
+    CGFloat msgW = [msg sizeWithAttributes:@{NSFontAttributeName : LSMessageFont}].width;
     CGFloat centerX = (window_.frame.size.width - msgW) * 0.5 - 20;
     CGFloat centerY = window_.frame.size.height * 0.5;
     loadingView.center = CGPointMake(centerX, centerY);
@@ -163,7 +163,7 @@ static UIProgressView *progressView_;
     progressView_.progress = progres;
     if(progres >= 1.0){
         [self hide];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(XMGAnimationDuration * 2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(LSAnimationDuration * 2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [LSStatusBarHUD showSuccess:@"加载成功!"];
         });
     }
@@ -173,7 +173,7 @@ static UIProgressView *progressView_;
  */
 + (void)hide
 {
-    [UIView animateWithDuration:XMGAnimationDuration animations:^{
+    [UIView animateWithDuration:LSAnimationDuration animations:^{
         CGRect frame = window_.frame;
         frame.origin.y =  - frame.size.height;
         window_.frame = frame;
