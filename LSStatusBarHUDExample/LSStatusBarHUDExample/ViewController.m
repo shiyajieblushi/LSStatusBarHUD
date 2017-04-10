@@ -43,11 +43,10 @@
     [LSStatusBarHUD showLoadingProgress];
 }
 
-static CGFloat progress_;
 // 模拟加载进度
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    progress_ = progress_ + 0.1;
-    [LSStatusBarHUD loadingProgress:progress_];
+//    progress_ = progress_ + 0.1;
+    [LSStatusBarHUD loadFinish];
 }
 
 @end

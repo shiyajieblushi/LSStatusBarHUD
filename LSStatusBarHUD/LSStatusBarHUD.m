@@ -132,6 +132,10 @@ static UIProgressView *progressView_;
     [window_ addSubview:loadingView];
 }
 
+
+static NSTimer *progressTimer_; // 控制进度的timer
+static UIWindow *progressWindow_;
+
 /**
  * 显示正在加载进度(带进度条)
  */
@@ -153,6 +157,54 @@ static UIProgressView *progressView_;
     progressView_.backgroundColor = [UIColor lightGrayColor];
     progressView_.progressTintColor = [UIColor redColor];
     progressView_.progress = 0;
+    
+    
+    // 清空timer
+        ppp = 0;
+        [progressTimer_ invalidate];
+        progressTimer_ = nil;
+    
+    progressTimer_ = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressChange) userInfo:nil repeats:YES];
+}
+static CGFloat ppp = 0;
++ (void) progressChange{
+    ppp += 0.01;
+    
+    progressView_.progress = ppp;
+    
+    if(ppp >= 0.9){
+    
+        [progressTimer_ invalidate];
+        progressTimer_ = nil;
+    }
+}
+
++ (void) loadFinish{
+    
+    progressView_.progress = 1;
+    [self hide];
+}
+
+/**
+ 暂时没用
+ */
++ (void) creatProgressWindow{
+    // frame数据
+    CGFloat windowH = 20;
+    CGRect frame = CGRectMake(0, - windowH, [UIScreen mainScreen].bounds.size.width, windowH);
+    
+    // 显示窗口
+    window_.hidden = YES;
+    window_ = [[UIWindow alloc] init];
+    window_.backgroundColor = [UIColor blackColor];
+    window_.windowLevel = UIWindowLevelAlert;
+    window_.frame = frame;
+    window_.hidden = NO;
+    // 动画
+    frame.origin.y = 0;
+    [UIView animateWithDuration:LSAnimationDuration animations:^{
+        window_.frame = frame;
+    }];
 }
 
 /**
@@ -163,9 +215,9 @@ static UIProgressView *progressView_;
     progressView_.progress = progres;
     if(progres >= 1.0){
         [self hide];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(LSAnimationDuration * 2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [LSStatusBarHUD showSuccess:@"加载成功!"];
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(LSAnimationDuration * 2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [LSStatusBarHUD showSuccess:@"加载成功!"];
+//        });
     }
 }
 /**

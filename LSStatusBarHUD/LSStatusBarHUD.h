@@ -34,6 +34,7 @@
 + (void)showLoading:(NSString *)msg;
 
 /**
+ * 在状态栏中显示
  * 显示正在加载进度(带进度条)
  */
 + (void)showLoadingProgress;
@@ -41,7 +42,13 @@
 /**
  * 修改进度
  */
-+ (void)loadingProgress:(CGFloat)progress;
+//+ (void)loadingProgress:(CGFloat)progress;
+
+
+/**
+ 加载完成
+ */
++ (void) loadFinish;
 
 /**
  * 隐藏
